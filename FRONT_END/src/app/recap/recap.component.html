@@ -1,0 +1,17 @@
+<div class="block mx-auto">
+    <h2 class="mx-2 y-2">Récapitulatif</h2>
+    <table class="table .table-sm block-table">
+        <thead>
+            <tr>
+            <th>Champ</th>
+            <th>Valeur</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let control of formControls.controls | keyvalue">
+            <tr>
+                <td>{{control.key}}</td>
+                <td>{{formControls.get(control.key)?.value}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
