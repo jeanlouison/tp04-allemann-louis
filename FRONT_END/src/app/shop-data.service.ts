@@ -34,7 +34,7 @@ export class ShopDataService {
       produitsObs
       .subscribe(produits => {
         produitsArray = produits as Array<Produit>;
-        produitsArray.filter(produit => produit.ref == ref);
+        produitsArray = produitsArray.filter(produit => produit.ref == ref);
         resolve(produitsArray[0]);
       }), reject});
   }

@@ -19,7 +19,7 @@
                 <button class="btn btn-primary" (click)="addProduct(p)">
                     Ajouter au panier
                 </button>
-                <button routerLink="['produit', p]" class="btn btn-primary">
+                <button routerLink="/produit/{{p.ref}}" class="btn btn-light">
                     Détails
                 </button>
             </div>  
