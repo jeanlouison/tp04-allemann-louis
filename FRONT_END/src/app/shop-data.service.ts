@@ -19,9 +19,23 @@ export class ShopDataService {
     let produitsObs : Observable<Array<Produit>> = this.httpClient.get<Array<Produit>>('assets/mock/produits.json');
 
     return new Promise((resolve, reject) => {
-      produitsObs.subscribe(produits => {
+      produitsObs
+      .subscribe(produits => {
         produitsArray = produits as Array<Produit>;
         resolve(Math.ceil(Math.max.apply(Math, produitsArray.map(produit => produit.prix ))));
+      }), reject});
+  }
+
+  public async getProductByRef(ref: string): Promise<Produit> {
+    let produitsArray: Array<Produit> = new Array<Produit>();
+    let produitsObs : Observable<Array<Produit>> = this.httpClient.get<Array<Produit>>('assets/mock/produits.json');
+
+    return new Promise((resolve, reject) => {
+      produitsObs
+      .subscribe(produits => {
+        produitsArray = produits as Array<Produit>;
+        produitsArray.filter(produit => produit.ref == ref);
+        resolve(produitsArray[0]);
       }), reject});
   }
 }

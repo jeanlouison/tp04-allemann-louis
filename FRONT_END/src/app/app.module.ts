@@ -20,6 +20,8 @@ import { PrixPipe } from './prix.pipe';
 import { environment } from 'src/environments/environment';
 import { PanierComponent } from './panier/panier.component';
 import { ProductState } from 'src/shared/states/products-state';
+import { AdresseComponent } from './adresse/adresse.component';
+import { DetailComponent } from './detail/detail.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { ProductState } from 'src/shared/states/products-state';
     RecapComponent,
     ValidateDirective,
     PrixPipe,
-    PanierComponent
+    PanierComponent,
+    AdresseComponent,
+    DetailComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +49,7 @@ import { ProductState } from 'src/shared/states/products-state';
       {path: 'compte', component: FormComponent},
       {path: 'boutique', component: CatalogComponent},
       {path: 'panier', component: PanierComponent},
+      {path: 'produit/:ref', component: DetailComponent},
     ]),
     NgxsModule.forRoot([ProductState], {
       developmentMode: !environment.production

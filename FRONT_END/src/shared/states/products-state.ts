@@ -31,7 +31,7 @@ export class ProductState {
   ){
     const state = getState();
     patchState({
-    products: [...state.products, payload],
+      products: [...state.products, payload],
     });
   }
 
@@ -42,7 +42,7 @@ export class ProductState {
   ){
     const state = getState();
     patchState({
-    products: state.products.filter(p => p != payload)
+      products: state.products.filter(p => p != payload)
     });
   }
 }
