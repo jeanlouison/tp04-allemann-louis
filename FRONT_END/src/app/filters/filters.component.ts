@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Filters } from '../../shared/models/filters';
 import { Produit } from '../../shared/models/produit';
 import { ShopDataService } from '../shop-data.service';
@@ -15,7 +15,7 @@ export class FiltersComponent implements OnInit {
 
   @Output() filtersEmitter = new EventEmitter<Filters>();
 
-  filterForm = this.fb.group({
+  filterForm:FormGroup = this.fb.group({
     maxPriceFilter: [this.$filters.price],
     gamepassFilter: [this.$filters.gamepass]
   });

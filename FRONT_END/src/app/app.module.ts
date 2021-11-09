@@ -4,56 +4,44 @@ import { RouterModule } from '@angular/router';
 import { NgxsModule } from '@ngxs/store';
 
 import { AppComponent } from './app.component';
-import { FormComponent } from './form/form.component';
-import { ShopComponent } from './shop/shop.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { TelephonePipe } from './pipes/telephone';
-import { RecapComponent } from './recap/recap.component';
-import { ValidateDirective } from './validate.directive';
+import { HttpClientModule } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { ProductState } from 'src/shared/states/products-state';
+import { SharedModule } from './shared-module/shared-module.module';
+import { AdresseComponent } from './adresse/adresse.component';
 import { CatalogComponent } from './catalog/catalog.component';
 import { FiltersComponent } from './filters/filters.component';
-import { HttpClientModule } from '@angular/common/http';
-import { PrixPipe } from './prix.pipe';
-import { environment } from 'src/environments/environment';
-import { PanierComponent } from './panier/panier.component';
-import { ProductState } from 'src/shared/states/products-state';
-import { AdresseComponent } from './adresse/adresse.component';
-import { DetailComponent } from './detail/detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FormComponent,
     HeaderComponent,
     FooterComponent,
-    ShopComponent,
     CatalogComponent,
     FiltersComponent,
-    TelephonePipe,
-    RecapComponent,
-    ValidateDirective,
-    PrixPipe,
-    PanierComponent,
-    AdresseComponent,
-    DetailComponent
+    AdresseComponent
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     NgbModule,
-    ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot([
-      {path: 'compte', component: FormComponent},
-      {path: 'boutique', component: CatalogComponent},
-      {path: 'panier', component: PanierComponent},
-      {path: 'produit/:ref', component: DetailComponent},
+      { path: 'panier', loadChildren: () => import('./panier/panier.module').then(m => m.PanierModule) },
+      { path: 'client', loadChildren: () => import('./form/form.module').then(m => m.FormModule) },
+      { path: 'produit/:ref', loadChildren: () => import('./detail/detail.module').then(m => m.DetailModule) },
+      { path: 'catalogue', loadChildren: () => import('./catalog/catalog.module').then(m => m.CatalogModule) },
+      { path: '', loadChildren: () => import('./catalog/catalog.component').then(m => m.CatalogComponent) },
     ]),
     NgxsModule.forRoot([ProductState], {
       developmentMode: !environment.production
     }),
+    SharedModule.forRoot(),
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

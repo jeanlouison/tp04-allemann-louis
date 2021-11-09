@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-adresse',
@@ -7,7 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdresseComponent implements OnInit {
 
-  constructor() { }
+  @Output()
+  adresseForm = this.fb.group({
+    adresse: ['', Validators.required],
+    codePostal: ['', Validators.pattern("[0-9]{5}")],
+    ville: ['', Validators.required],
+  });
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
   }
