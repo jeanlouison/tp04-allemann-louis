@@ -1,5 +1,9 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Select } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { Adresse } from 'src/shared/models/adresse';
+import { AddressState } from 'src/shared/states/address-state';
 import { MatchValidator } from '../tools/match-validator';
 
 @Component({
@@ -10,13 +14,18 @@ import { MatchValidator } from '../tools/match-validator';
 
 export class FormComponent implements OnInit {  
 
+  @Input()
+  selectedAdresse: Adresse = new Adresse();
+
   @Output()
   mainForm = this.fb.group({
     nom: ['', Validators.required],
     prenom: ['', Validators.required],
-    adresse: [''],
-    codePostal: ['', Validators.pattern("[0-9]{5}")],
-    ville: [''],
+    adresse: [new Adresse({
+      adresse: this.selectedAdresse.adresse,
+      codePostal: this.selectedAdresse.codePostal,
+      ville: this.selectedAdresse.ville
+    })],
     telephone: [''],
     email: ['', Validators.email],
     civilite: ['Homme'],
@@ -32,6 +41,9 @@ export class FormComponent implements OnInit {
 
   isComponentValid = true;
 
+  @Select(AddressState.getListeAdresses)
+  addresses$!: Observable<Adresse[]>;
+
   constructor(private fb: FormBuilder) {
 
   }
@@ -44,8 +56,23 @@ export class FormComponent implements OnInit {
     this.mainForm.get('civilite')?.setValue(value);
   }
 
-  ngOnInit(): void {
+  saveFormData() {
+    let saveData = JSON.parse(JSON.stringify(this.mainForm.value));
+    saveData['adresse'] = JSON.parse(JSON.stringify(this.selectedAdresse));
+    localStorage.setItem('FormData', JSON.stringify(saveData));
+  }
 
+  restoreFormData() {
+    let storageData = localStorage.getItem('FormData');
+    if (storageData != null) {
+      this.mainForm.patchValue(JSON.parse(storageData));
+    }
+    this.mainForm.get('adresse')?.patchValue(this.selectedAdresse);
+    localStorage.removeItem('FormData');
+  }
+
+  ngOnInit(): void {
+    this.restoreFormData();
   }
 
 }

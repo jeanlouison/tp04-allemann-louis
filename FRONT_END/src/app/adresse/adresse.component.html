@@ -1,11 +1,7 @@
-<div class="d-flex flex-align-left">
-    <button>Retour au formulaire client</button>
-</div>
-
 <div class="d-flex flex-row">
-    <div class="main-block mx-auto p-3">
-    <div class="d-flex flex-column justify-content-center">
-        <form id="adresse-form" [formGroup]="adresseForm" class="adresse-form d-flex flex-column"> -->
+    <div class="main-block mx-auto p-3 d-flex flex-row">
+    <div class="d-flex flex-column justify-content-center">        
+        <form id="adresse-form" (ngSubmit)="onSubmitForm()" [formGroup]="adresseForm" class="adresse-form d-flex flex-column m-3">
             <!-- Adresse -->
             <div class="d-flex flex-column mb-3">
                 <label for="adresse" class="form-label mb-0">Adresse</label>
@@ -29,6 +25,21 @@
                 </button>
             </div>
         </form>
+        <button routerLink="/client" class="btn btn-light" style="width:10vw">Retour au formulaire client</button>
+    </div>
+    <div *ngFor="let a of addresses$ | async">
+        <div class="card mx-3 my-2 d-flex flex-row">
+        <div class="card-body" tyle="width: 64rem;">
+            <h4 class="card-title">{{a.adresse}}</h4>
+            <div class="card-text">
+                <p>{{a.codePostal}}</p>
+                <p>{{a.ville}}</p>
+            </div>
+            <button class="btn btn-primary" (click)="removeAddress(a)">
+                Supprimer
+            </button>
+        </div>
+        </div>
     </div>
     </div>
 </div>

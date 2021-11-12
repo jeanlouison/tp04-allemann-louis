@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { CatalogComponent } from './catalog.component';
+import { AdresseComponent } from './adresse.component';
 import { SharedModule } from '../shared-module/shared-module.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxsModule } from '@ngxs/store';
+import { AddressState } from 'src/shared/states/address-state';
+
 
 const routes: Routes = [
-  { path: '', component: CatalogComponent }
+  { path: '', component: AdresseComponent }
 ];
 
 @NgModule({
@@ -19,6 +22,7 @@ const routes: Routes = [
     SharedModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
+    NgxsModule.forFeature([AddressState]),
   ]
 })
-export class CatalogModule { }
+export class AdresseModule { }

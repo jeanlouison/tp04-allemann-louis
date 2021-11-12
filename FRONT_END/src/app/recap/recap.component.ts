@@ -13,6 +13,8 @@ export class RecapComponent implements OnInit {
   @Input()
   formControls: FormGroup = new FormGroup({foo: new FormControl()});
 
+  isObject(val: undefined): boolean { return typeof val === 'object'; }
+
   constructor() { }
 
   ngOnInit(): void {

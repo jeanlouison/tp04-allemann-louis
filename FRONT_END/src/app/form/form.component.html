@@ -13,11 +13,6 @@
                 Le prénom est obligatoire.
             </li>
 
-            <li *ngIf="mainForm.controls.codePostal.value.length > 0
-                        && mainForm.controls.codePostal.errors?.pattern">
-                Le code postal doit être numérique et de longueur 5.
-            </li>
-
             <li *ngIf="mainForm.controls.identifiant.errors?.required">
                 L'identifiant est obligatoire.
             </li>
@@ -44,23 +39,15 @@
         <div class="d-flex flex-column mb-3">
             <label for="prenom" class="form-label mb-0">Prénom*</label>
             <input type="text" name="prenom" formControlName="prenom" class="form-control" [appValidate]="mainForm"/>
-            <div class="form-text">*Obligatoire.</div>
+            <div class="form-text">*Obligatoire.</div>            
         </div>
         <!-- Adresse -->
         <div class="d-flex flex-column mb-3">
             <label for="adresse" class="form-label mb-0">Adresse</label>
-            <input type="text" name="adresse" formControlName="adresse" class="form-control" [appValidate]="mainForm"/>
-        </div>
-        <!-- Code postal -->
-        <div class="d-flex flex-column mb-3">
-            <label for="codePostal" class="form-label mb-0">Code postal</label>
-            <input type="text" name="codePostal" formControlName="codePostal" class="form-control" pattern="[0-9]{0,5}" [appValidate]="mainForm"/>
-            <div class="form-text">5 chiffres maximum.</div>
-        </div>
-        <!-- Ville -->
-        <div class="d-flex flex-column mb-3">
-            <label for="ville" class="form-label mb-0">Ville</label>
-            <input type="text" name="ville" formControlName="ville" class="form-control" [appValidate]="mainForm"/>
+            <select name="adresse" formControlName="adresse" class="form-control" [appValidate]="mainForm" [(ngModel)]="selectedAdresse">
+                    <option *ngFor="let item of addresses$ | async" [ngValue]="item">{{item.adresse}}</option>
+            </select>
+            <a (click)="saveFormData()" routerLink="/adresse">Gérer les adresses</a>
         </div>
         <!-- Téléphone -->
         <div class="d-flex flex-column mb-3">

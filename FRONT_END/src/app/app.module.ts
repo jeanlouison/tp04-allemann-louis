@@ -35,6 +35,7 @@ import { FiltersComponent } from './filters/filters.component';
       { path: 'client', loadChildren: () => import('./form/form.module').then(m => m.FormModule) },
       { path: 'produit/:ref', loadChildren: () => import('./detail/detail.module').then(m => m.DetailModule) },
       { path: 'catalogue', loadChildren: () => import('./catalog/catalog.module').then(m => m.CatalogModule) },
+      { path: 'adresse', loadChildren: () => import('./adresse/adresse.module').then(m => m.AdresseModule) },
       { path: '', loadChildren: () => import('./catalog/catalog.component').then(m => m.CatalogComponent) },
     ]),
     NgxsModule.forRoot([ProductState], {

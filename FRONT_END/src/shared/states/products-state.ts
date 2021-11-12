@@ -30,6 +30,7 @@ export class ProductState {
     { payload }: AddProduct
   ){
     const state = getState();
+    console.log(payload);
     patchState({
       products: [...state.products, payload],
     });
